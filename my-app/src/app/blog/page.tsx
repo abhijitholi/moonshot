@@ -1,16 +1,20 @@
 'use client'
 
 async function getData(){
-    const endpoint = "http://localhost:3000/api/post";
-    const response = await fetch(endpoint);
+//     const endpoint = "http://localhost:3000/api/post";
+//     const response = await fetch(endpoint);
     
-    if(!response.ok){
-        throw new Error('faild to fetch data');
-    }
+//     if(!response.ok){
+//         throw new Error('faild to fetch data');
+//     }
 
-    const data = await response.json();
-    return data;
+//     const data = await response.json(); 
+//     return data;
+
+    return {items:[]}
 }
+
+
 
 export default async function BlogPost() {
     const data = await getData();

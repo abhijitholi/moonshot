@@ -1,5 +1,14 @@
-'use client'
+// 'use client'
 import getDomain from "../lib/getDomain";
+
+
+// fetch casing option
+
+//force cashing
+// const domain = getDomain();
+// const endpoint = `${domain}/api/post`;
+// const response = await fetch(endpoint, {cache:'force-cache'});
+
 
 async function getData(){
     const domain = getDomain();

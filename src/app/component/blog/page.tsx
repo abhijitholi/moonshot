@@ -9,7 +9,7 @@ async function getData(){
     if(!res.ok){
         throw new Error('faild to fetch data');  
     } 
-console.log(endpoint) 
+//console.log(endpoint) 
 
 
 if(res.headers.get("content-type")!=="application/json"){

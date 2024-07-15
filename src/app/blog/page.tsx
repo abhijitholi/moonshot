@@ -18,20 +18,17 @@ async function getData(){
 
 export default async function BlogPost() {
     const data = await getData();
-    const items = data && data.items ? [...data.items] : [];
-    console.log(process.env.PUBLIC_DOMAIN)  
+    //const items = data && data.items ? [...data.items] : []; 
     return (
         <>
           <h1>Blog</h1>
-          {items.length > 0 ? (
-            <ul>
-              {items.map((item, index) => (
-                <li key={`post-${index}`}>{item.name}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No blog posts available</p>
-          )}
+
+          <ul>
+            {data && data.items && data.items.map((item: any) => (
+              <li key={item.id}>{item.name}</li>
+            ))}
+          </ul>   
+    
         </>
       );
     }

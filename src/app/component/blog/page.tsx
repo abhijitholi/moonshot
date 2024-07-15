@@ -1,5 +1,5 @@
 // 'use client'
-import getDomain from "../lib/getDomain";
+import getDomain from "../../lib/getDomain";
 
 
 // fetch casing option

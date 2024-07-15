@@ -3,7 +3,7 @@ import getDomain from "@/app/lib/getDomain";
 
 async function getData(){
     const domain = getDomain();
-    const endpoint = `${domain}/api/post`;
+    const endpoint = `${domain}/api/post2`;
     
     const res = await fetch(endpoint , { cache: 'force-cache' });
     if(!res.ok){

@@ -1,11 +1,12 @@
-// 'use client'
+
 import getDomain from "@/app/lib/getDomain";
+import BlogCard from "@/app/component/blog/card"
 
 async function getData(){
     const domain = getDomain();
     const endpoint = `${domain}/api/post`;
     
-    const res = await fetch(endpoint , {next: {revalidate: 10}});
+    const res = await fetch(endpoint);
     if(!res.ok){
         throw new Error('faild to fetch data');  
     } 
@@ -39,6 +40,7 @@ export default async function BlogPost() {
             return <li key={`post-${idx}`}>{item.name}</li>
           })}
         </ul>
+        <BlogCard/>
       </>
   );
 }

@@ -43,9 +43,11 @@
 //   );
 // }
 
-
 export default async function Page() {
-  let res = await fetch('http://localhost:3000/api/post');
-  let data = await res.json();
-  return <h1>{JSON.stringify(data)}</h1>;
+  // call your async function directly
+  //let data = await getData(); // { data: 'Next.js' }
+  // or call an external API directly
+  let data = await fetch('https://api.vercel.app/api/blog')
+
+  return data.json()
 }

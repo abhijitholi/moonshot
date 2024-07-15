@@ -30,6 +30,7 @@ return response.json();
 export default async function BlogPost() {
     const data = await getData();
     const items = data && data.items ? [...data.items] : []; 
+    console.log(data.items)
     return ( 
         <>
           <h1>Blog</h1>

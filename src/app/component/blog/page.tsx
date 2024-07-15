@@ -1,34 +1,34 @@
 // 'use client'
-import getDomain from "@/app/lib/getDomain";
+// import getDomain from "@/app/lib/getDomain";
 
-async function getData(){
-    const domain = getDomain();
-    const endpoint = `${domain}/api/post`;
+// async function getData(){
+//     const domain = getDomain();
+//     const endpoint = `${domain}/api/post`;
     
-    const res = await fetch(endpoint , { cache: 'force-cache' });
-    if(!res.ok){
-        throw new Error('faild to fetch data');  
-    } 
-console.log(endpoint) 
+//     const res = await fetch(endpoint , { cache: 'force-cache' });
+//     if(!res.ok){
+//         throw new Error('faild to fetch data');  
+//     } 
+// console.log(endpoint) 
 
 
-if(res.headers.get("content-type")!=="application/json"){
+// if(res.headers.get("content-type")!=="application/json"){
   
-  return{items:[]};
-}
+//   return{items:[]};
+// }
 
  
-return res.json(); 
+// return res.json(); 
 
-}
+// }
 
 
 
 
 export default async function BlogPost() {
-  const data = await getData();
-  const stringData = JSON.stringify(data);
-  const items = stringData && stringData ? [...data.items] : []; 
+  // const data = await getData();
+  // const stringData = JSON.stringify(data);
+  // const items = stringData && stringData ? [...data.items] : []; 
   //console.log(stringData)
   return ( 
       <>

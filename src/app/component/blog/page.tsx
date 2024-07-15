@@ -19,7 +19,7 @@ async function getData(){
 
 if(response.headers.get("content-type")!=="application/json"){
   
-  return{items:[]}
+  return{items:[null]}
 }
 
  
@@ -29,7 +29,7 @@ return response.json();
 
 export default async function BlogPost() {
     const data = await getData();
-    const items = data && data.items ? [...data.items] : []; 
+    const items = data && data.items ? [...data.items] : [null]; 
     console.log(data.items)
     return ( 
         <>

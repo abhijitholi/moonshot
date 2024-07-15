@@ -5,17 +5,17 @@ async function getData(){
     const domain = getDomain();
     const endpoint = `${domain}/api/post`;
     
-    const res = await fetch(endpoint);
+    const res = await fetch(endpoint , { cache: 'force-cache' });
     if(!res.ok){
         throw new Error('faild to fetch data'); 
-    }
+    } 
 console.log(endpoint)
 
 
-// if(res.headers.get("content-type")!=="application/json"){
+if(res.headers.get("content-type")!=="application/json"){
   
-//   return{items:[]};
-// }
+  return{items:[]};
+}
 
  
 return res.json(); 

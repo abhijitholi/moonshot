@@ -5,9 +5,7 @@ import getDomain from "../lib/getDomain";
 // fetch casing option
 
 //force cashing
-// const domain = getDomain();
-// const endpoint = `${domain}/api/post`;
-// const response = await fetch(endpoint, {cache:'force-cache'});
+
 
 
 async function getData(){
@@ -31,17 +29,15 @@ return data;
 
 export default async function BlogPost() {
     const data = await getData();
-    //const items = data && data.items ? [...data.items] : []; 
-    return (
+    const items = data && data.items ? [...data.items] : []; 
+    return ( 
         <>
           <h1>Blog</h1>
-
-          <ul>
-            {data && data.items && data.items.map((item: any) => (
-              <li key={item.id}>{item.name}</li>
-            ))} 
-          </ul>   
-    
+          <p>Posts:</p>
+            {items && items.map((item,idx)=>{
+              return <li key={`post-${idx}`}>{item.name}</li>
+            })}
+      
         </>
       );
     }

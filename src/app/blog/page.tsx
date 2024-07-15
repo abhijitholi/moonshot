@@ -18,15 +18,13 @@ async function getData(){
 
 export default async function BlogPost() {
     const data = await getData();
-    //const items = data && data.items ? [...data.items] : []; 
+    
     return (
         <>
           <h1>Blog</h1>
 
           <ul>
-            {data && data.items && data.items.map((item: any) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
+            <li>{ JSON.stringify(data)}</li>
           </ul>   
     
         </>

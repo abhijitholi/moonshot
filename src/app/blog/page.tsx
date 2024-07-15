@@ -34,9 +34,9 @@ export default async function BlogPost() {
         <>
           <h1>Blog</h1>
           <p>Posts:</p>
-            {items && items.map((item,idx)=>{
+            {/* {items && items.map((item,idx)=>{
               return <li key={`post-${idx}`}>{item.name}</li>
-            })}
+            })} */}
       
         </>
       );

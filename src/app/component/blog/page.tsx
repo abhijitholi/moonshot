@@ -12,10 +12,10 @@ async function getData(){
 console.log(endpoint)
 
 
-if(res.headers.get("content-type")!=="application/json"){
+// if(res.headers.get("content-type")!=="application/json"){
   
-  return{items:[]};
-}
+//   return{items:[]};
+// }
 
  
 return res.json(); 

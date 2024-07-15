@@ -5,7 +5,7 @@ async function getData(){
     const domain = getDomain();
     const endpoint = `${domain}/api/post`;
     
-    const res = await fetch(endpoint , { cache: 'force-cache' });
+    const res = await fetch(endpoint , {next: {revalidate: 10}});
     if(!res.ok){
         throw new Error('faild to fetch data');  
     } 

@@ -2,7 +2,7 @@
 import getDomain from "@/app/lib/getDomain";
 
 
-// fetch casing option
+// fetch cashing option
 
 //force cashing
 
@@ -11,32 +11,36 @@ import getDomain from "@/app/lib/getDomain";
 async function getData(){
     const domain = getDomain();
     const endpoint = `${domain}/api/post`;
-    const response = await fetch(endpoint);
     
-    if(!response.ok){
+    // const res = await fetch(endpoint);
+
+    const res = await fetch('https://fakestoreapi.com/products');
+    
+    if(!res.ok){
         throw new Error('faild to fetch data');
     }
 
-if(response.headers.get("content-type")!=="application/json"){
+// if(res.headers.get("content-type")!=="application/json"){
   
-  return{items:[null]}
-}
+//   return{}
+// }
 
  
-return response.json();
+return res.json(); 
 
 }
 
 export default async function BlogPost() {
     const data = await getData();
-    const items = data && data.items ? [...data.items] : [null]; 
-    console.log(data.items)
+    const stringData = JSON.stringify(data);
+    const items = stringData && stringData ? JSON.parse(stringData) : []; 
+    console.log(stringData)
     return ( 
         <>
           <h1>Blog</h1>
           <p>Posts:</p>
             {items && items.map((item,idx)=>{
-              return <li key={`post-${idx}`}>{item.name}</li>
+              return <li key={`post-${idx}`}>{item.title}</li>
             })}
       
         </>

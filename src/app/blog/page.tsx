@@ -10,21 +10,27 @@ async function getData(){
         throw new Error('faild to fetch data');
     }
 
-    const data = await response.json();
-    return data;
+if(response.headers.get("content-type")!=="application/json"){
+  
+  return{items:[]}
+}
 
-    //return{items:[]}
+const data = await response.json();
+return data;
+
 }
 
 export default async function BlogPost() {
     const data = await getData();
-    
+    //const items = data && data.items ? [...data.items] : []; 
     return (
         <>
           <h1>Blog</h1>
 
           <ul>
-            <li>{ JSON.stringify(data)}</li>
+            {data && data.items && data.items.map((item: any) => (
+              <li key={item.id}>{item.name}</li>
+            ))} 
           </ul>   
     
         </>

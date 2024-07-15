@@ -3,13 +3,13 @@ import getDomain from "@/app/lib/getDomain";
 
 async function getData(){
     const domain = getDomain();
-    const endpoint = `${domain}/api/post2`;
+    const endpoint = `${domain}/api/post`;
     
     const res = await fetch(endpoint , { cache: 'force-cache' });
     if(!res.ok){
         throw new Error('faild to fetch data'); 
     } 
-console.log(endpoint)
+console.log(endpoint) 
 
 
 if(res.headers.get("content-type")!=="application/json"){

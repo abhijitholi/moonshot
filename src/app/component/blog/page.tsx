@@ -7,7 +7,7 @@ async function getData(){
     
     const res = await fetch(endpoint , { cache: 'force-cache' });
     if(!res.ok){
-        throw new Error('faild to fetch data'); 
+        throw new Error('faild to fetch data');  
     } 
 console.log(endpoint) 
 

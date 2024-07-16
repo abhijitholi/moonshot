@@ -19,7 +19,7 @@ export default function Home() {
         </div>
         <div className="flex space-x-4 items-center">
           <Link href="/component/blog" className="text-gray-800 text-sm">LOGIN</Link>
-          <Link href="#" className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm">SIGNUP</Link>
+          <Link href="/register" className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm">Register</Link>
         </div>
       </div>
     </div>

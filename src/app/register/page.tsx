@@ -1,15 +1,15 @@
 'use client'
 import { useState } from "react";
+import axios from 'axios';
 
-export default function RegisterPage () {
+export default function RegisterPage() {
   const [form, setForm] = useState({
     username: '',
     email: '',
     password: '',
   });
-  //console.log(form)
 
-  const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
@@ -18,26 +18,28 @@ export default function RegisterPage () {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //Handle form submission, e.g., send data to your API
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    });
+    try {
+      const response = await axios.post('/api/register', form, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (response.ok) {
-      // Registration successful
-      console.log('User registered successfully');
-    } else {
+      if (response.status === 201) {
+        // Registration successful
+        console.log('User registered successfully');
+      } else {
+        // Handle unexpected response
+        console.log('Unexpected response:', response);
+      }
+    } catch (error) {
       // Handle error
-      console.log('Registration failed');
+      console.log('Registration failed:', error);
     }
   };
 
   return (
-    <div >
+    <div>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -77,6 +79,4 @@ export default function RegisterPage () {
       </form>
     </div>
   );
-};
-
-
+}

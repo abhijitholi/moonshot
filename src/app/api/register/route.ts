@@ -20,9 +20,21 @@ export async function POST(request: NextRequest) {
     return otp;
   }
   const OTP = generateAlphanumericOTP(6);
+  
   try {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
+
+    // Hash the password
+    const hashedPassword = await hash(password, 10);
+
+    // Insert user details and OTP into the database
+    await sql`
+      INSERT INTO users (username, email, password, otp)
+      VALUES (${username}, ${email}, ${hashedPassword}, ${OTP})
+    `;
+
+    // Send the OTP email
     try {
       const { data, error } = await resend.emails.send({
         from: "Moonshot e-commerce <moonshot@resend.dev>",
@@ -33,20 +45,13 @@ export async function POST(request: NextRequest) {
       });
 
       if (error) {
-        return Response.json({ error }, { status: 500 });
+        return NextResponse.json({ error }, { status: 500 });
       }
 
-      return Response.json(data);
-    } catch (error) {
-      return Response.json({ error }, { status: 500 });
+      return NextResponse.json(data);
+    } catch (error:any) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
-
-    await sql`
-    INSERT INTO users (username, email, password)
-    VALUES (${username}, ${email}, ${password} ${OTP})
-    `;
-
-    // otp Start **********************************
 
     return NextResponse.json(
       { message: `User registered successfully` },

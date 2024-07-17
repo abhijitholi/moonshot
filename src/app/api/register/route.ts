@@ -29,9 +29,9 @@ const OTP = generateAlphanumericOTP(6);
     try {
       const { data, error } = await resend.emails.send({
         from: 'Moonshot e-commerce <moonshot@resend.dev>',
-        to: ['jitholi83@gmail.com'],
+        to: [`${email}`],
         subject: 'Moonshot e-commerce Email Verifaction Code', 
-        react: EmailTemplate({ userName:`${username}`, otp:OTP }),
+        react: EmailTemplate({ username:`${username}`, otp:OTP }),
       });
   
       if (error) { 

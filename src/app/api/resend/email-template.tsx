@@ -11,10 +11,10 @@ import {
 } from '@react-email/components';
 
 interface VerifactionEmailProps { 
-  userName: string;
+  username: string;
   otp: string
 }
-export default function ({userName, otp}: VerifactionEmailProps) {
+export default function ({username, otp}: VerifactionEmailProps) {
   return (
     <Html>
       <Head>
@@ -36,7 +36,7 @@ export default function ({userName, otp}: VerifactionEmailProps) {
       <Section>
         <Row>
           <Heading>
-            Welcome, {userName}!
+            Welcome, {username}!
           </Heading>
         </Row>
         <Row>

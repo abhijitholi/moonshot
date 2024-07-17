@@ -1,46 +1,57 @@
 import { hash } from 'bcrypt';
 import { sql } from '@vercel/postgres';
 import { NextRequest, NextResponse } from 'next/server';
+// Otp 
+import EmailTemplate  from '@/app/api/resend/email-template';
+import { Resend } from 'resend';
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// export default async function handler(request, response) {
-//   if (request.method !== 'GET') {
-//     return request.status(405).json({ message: 'Method not allowed' });
-//   }
 
-//   const { username, email, password } = request.body;
-
-//   // Hash the password before saving to the database
-//   //const hashedPassword = await hash(password, 10);
-
-//   try {
-//     // Insert user data into the database
-//     await sql`
-//       INSERT INTO users (username, email, password)
-//       VALUES (${username}, ${email}, ${password})
-//     `;
-
-//     console.log('User registered:', { username, email, password });
-
-//     return request.status(201).json({ message: 'User registered successfully' });
-//   } catch (error) {
-//     console.error('Error registering user:', error);
-//     return request.status(500).json({ message: 'Internal server error' });
-//   }
-// }
 
 export async function POST(request:NextRequest){
- try{
-  const reqBody =await request.json()
-  const {username,email,password} = reqBody;
 
-  // Hash the password before saving to the database
-  //const hashedPassword = await hash(password, 10);
-  // Insert user data into the database
-  await sql`
+
+  // OTP function
+  function generateAlphanumericOTP(length: number): string {
+    let otp = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    
+    for (let i = 0; i < length; i++) {
+        otp += characters[Math.floor(Math.random() * characters.length)];
+    }
+    
+    return otp;
+}
+const OTP = generateAlphanumericOTP(6);
+  try{
+    const reqBody =await request.json()
+    const {username,email,password} = reqBody;
+    try {
+      const { data, error } = await resend.emails.send({
+        from: 'Moonshot e-commerce <moonshot@resend.dev>',
+        to: ['jitholi83@gmail.com'],
+        subject: 'Moonshot e-commerce Email Verifaction Code', 
+        react: EmailTemplate({ userName:`${username}`, otp:OTP }),
+      });
+  
+      if (error) { 
+        return Response.json({ error }, { status: 500 });
+      }
+  
+      return Response.json(data);
+    } catch (error) {
+      return Response.json({ error }, { status: 500 });
+    }
+    
+    await sql`
     INSERT INTO users (username, email, password)
-    VALUES (${username}, ${email}, ${password})
-  `;
-  return NextResponse.json({message:'User registered successfully'},
+    VALUES (${username}, ${email}, ${password} ${OTP})
+    `;
+    
+    // otp Start **********************************
+  
+  
+  return NextResponse.json({message:`User registered successfully`},
   {status:200}
   )
  }catch(error:any){

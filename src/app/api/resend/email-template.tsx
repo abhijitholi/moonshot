@@ -10,16 +10,17 @@ import {
   Text,
 } from '@react-email/components';
 
-interface VerifactionEmailProps { 
+interface VerificationEmailProps { 
   username: string;
-  otp: string
+  otp: string;
 }
-export default function ({username, otp}: VerifactionEmailProps) {
+
+const VerificationEmail: React.FC<VerificationEmailProps> = ({ username, otp }) => {
   return (
     <Html>
       <Head>
-        <title>Verifaction Code</title>
-      <Font
+        <title>Verification Code</title>
+        <Font
           fontFamily="Roboto"
           fallbackFontFamily="Verdana"
           webFont={{
@@ -31,28 +32,25 @@ export default function ({username, otp}: VerifactionEmailProps) {
         />
       </Head>
       <Body>
-
-      <Preview>Verifaction Code</Preview>
-      <Section>
-        <Row>
-          <Heading>
-            Welcome, {username}!
-          </Heading>
-        </Row>
-        <Row>
-          <Heading>
-            Thanks you for registering. Please use the following code to complete your registration. 
-          </Heading>
-        </Row>
-        <Row>
-          <Text>
-           <h2>
-              Your OTP is : {otp}
-            </h2>  
-          </Text>
-        </Row>
-      </Section>  
+        <Preview>Verification Code</Preview>
+        <Section>
+          <Row>
+            <Heading as="h1">Welcome, {username}!</Heading>
+          </Row>
+          <Row>
+            <Text>
+              Thank you for registering. Please use the following code to complete your registration.
+            </Text>
+          </Row>
+          <Row>
+            <Text>
+              <strong>Your OTP is: {otp}</strong>
+            </Text>
+          </Row>
+        </Section>  
       </Body>
     </Html>
-  )
-}
+  );
+};
+
+export default VerificationEmail;

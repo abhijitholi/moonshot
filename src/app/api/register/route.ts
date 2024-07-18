@@ -1,6 +1,7 @@
 import { hash } from "bcrypt";
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
+import createUsersTable from "@/app/api/create-table/route"
 // Otp
 import EmailTemplate from "@/app/api/resend/email-template";
 import { Resend } from "resend";
@@ -20,20 +21,23 @@ export async function POST(request: NextRequest) {
     return otp;
   }
   const OTP = generateAlphanumericOTP(8);
+
   
   try {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
 
+    createUsersTable();
+    const verifiction = false;
     // Hash the password
     const hashedPassword = await hash(password, 10);
 
     // Insert user details and OTP into the database
     await sql`
-      INSERT INTO users (username, email, password, otp)
-      VALUES (${username}, ${email}, ${hashedPassword}, ${OTP})
+      INSERT INTO users (username, email, password, otp, verifiction)
+      VALUES (${username}, ${email}, ${hashedPassword}, ${OTP}, ${verifiction})
     `;
-
+ 
     // Send the OTP email
     try {
       const { data, error } = await resend.emails.send({
@@ -61,3 +65,5 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+

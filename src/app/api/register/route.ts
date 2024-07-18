@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     return otp;
   }
-  const OTP = generateAlphanumericOTP(6);
+  const OTP = generateAlphanumericOTP(8);
   
   try {
     const reqBody = await request.json();

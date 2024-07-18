@@ -1,0 +1,19 @@
+<!-- <div class="m-9 grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <div class="min-h-[100px] rounded bg-orange-500 shadow-xl">1</div>
+  <div class="min-h-[100px] rounded bg-teal-500 shadow-xl">2</div>
+</div>
+<div class="m-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
+  <div class="text- min-h-[100px] rounded bg-orange-500 shadow-xl">1</div>
+  <div class="min-h-[100px] rounded bg-teal-500 shadow-xl">2</div>
+  <div class="min-h-[100px] rounded bg-blue-500 shadow-xl">3</div>
+</div> -->
+
+<!-- <div class="m-5 grid grid-cols-1 gap-2 sm:grid-cols-12">
+  <div class="text- min-h-[100px] rounded bg-orange-500 shadow-xl sm:col-span-3 sm:block">1</div>
+  <div class="min-h-[100px] rounded bg-teal-500 shadow-xl sm:col-span-6  hidden sm:block">2</div>
+   <div class="min-h-[100px] rounded bg-blue-500 shadow-xl sm:col-span-3" ">3</div>
+</div> -->
+
+<div class="w-[1440px] h-[1081px] sm:grid-cols-12">
+  <div class="m-5 border-gray-600 border-solid h-[691px] sm:col-span-3  bg-black-500 rounded-[10px] ">123</div><div class="m-5 border-gray-600 border-solid h-[691px] sm:col-span-6  bg-orange-500 rounded-[10px] ">123</div><div class="m-5 border-gray-600 border-solid h-[691px] sm:col-span-3  bg-red-500 rounded-[10px] ">123</div>
+</div>

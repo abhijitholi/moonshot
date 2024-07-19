@@ -12,29 +12,29 @@ const Navbar: React.FC = () => {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <Link href="/categories">
+                <Link href="/categories" legacyBehavior>
                   <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Categories</a>
                 </Link>
-                <Link href="/sale">
+                <Link href="/sale" legacyBehavior>
                   <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Sale</a>
                 </Link>
-                <Link href="/clearance">
+                <Link href="/clearance" legacyBehavior>
                   <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Clearance</a>
                 </Link>
-                <Link href="/new-stock">
+                <Link href="/new-stock" legacyBehavior>
                   <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">New stock</a>
                 </Link>
-                <Link href="/trending">
+                <Link href="/trending" legacyBehavior>
                   <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Trending</a>
                 </Link>
               </div>
             </div>
           </div>
           <div className="flex items-center">
-            <Link href="/help">
+            <Link href="/help" legacyBehavior>
               <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Help</a>
             </Link>
-            <Link href="/orders-returns">
+            <Link href="/orders-returns" legacyBehavior>
               <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Orders & Returns</a>
             </Link>
             <span className="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">Hi, John</span>

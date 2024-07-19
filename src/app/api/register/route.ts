@@ -1,7 +1,7 @@
 import { hash } from "bcrypt";
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
-import createUsersTable from "../create-table/route";
+import createUsersTable from "../create-table/create-table";
 createUsersTable();
 // Otp
 import EmailTemplate from "@/app/api/resend/email-template";

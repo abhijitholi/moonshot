@@ -3,23 +3,31 @@
 import React, { useState, useEffect } from 'react';
 import OtpInput from 'react-otp-input';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const VerifyEmail: React.FC<{ params: { username: string } }> = ({ params }) => {
   const [otp, setOtp] = useState('');
   const [saveOtp, setSaveOtp] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [email, setEmail] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+ 
+  const router = useRouter();
+ const verifiction = otp === saveOtp;
+ console.log(saveOtp === otp);
 
+  
   useEffect(() => {
     const fetchOtpAndEmail = async () => {
+     
       try {
         const response = await axios.get(`/api/verify/${params.username}`);
         const data = response.data;
         setEmail(data[0].email);
         setSaveOtp(data[0].otp);
+        
       } catch (error) {
+        
         console.error(error);
       }
     };
@@ -29,26 +37,20 @@ const VerifyEmail: React.FC<{ params: { username: string } }> = ({ params }) => 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-    setSuccess('');
-
     try {
-      const response = await axios.post(`/api/verify/${params.username}`, { otp });
-
-      if (response.status === 200) {
-        setSuccess('Email verified successfully!');
-      } else {
-        setError('Invalid OTP. Please try again.');
+      const response = await axios.post(`/api/verify/${params.username}`, { verifiction });
+      if(verifiction){
+        setTimeout(() => {
+            router.push(`/`);
+          }, 1000);
       }
+      setShowSuccess (verifiction);  
+      setShowError( !verifiction);
     } catch (error) {
-      setError('Failed to verify email. Please try again.');
       console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
-
+  
   return (
     <div className="flex flex-col rounded-lg items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
@@ -70,14 +72,22 @@ const VerifyEmail: React.FC<{ params: { username: string } }> = ({ params }) => 
               )}
             />
           </div>
-          {error && <p className="text-red-500 text-center">{error}</p>}
-          {success && <p className="text-green-500 text-center">{success}</p>}
+          {showSuccess && (
+        <div className="fixed top-4 right-4 p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+          <span className="font-medium">Your Otp is verified</span>
+        </div>
+      )}
+      {showError && (
+        <div className="fixed top-4 right-4 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+          <span className="font-medium">!Your Otp is not verified please check your otp</span>
+        </div>
+      )}
           <button
             type="submit"
             className="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            disabled={loading}
+          
           >
-            {loading ? 'VERIFYING...' : 'VERIFY'}
+            Veryfy Otp
           </button>
         </form>
       </div>

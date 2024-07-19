@@ -16,32 +16,19 @@ export async function GET(request: NextRequest, { params }: { params: { username
 
 export async function POST(request: NextRequest, { params }: { params: { username: string } }) {
   try {
-    const  otp  = await request.json();
-
-    // Fetch saved OTP from the database
-    const { rows } = await sql`
-      SELECT otp FROM users
-      WHERE username = ${params.username}
-    `;
-    console.log(rows)
-    if (rows.length === 0) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    const savedOtp = rows[0].otp;
-    const isMatch = otp === savedOtp;
-    
-   
-    // Update the user's verification status
+    const  verifiction  = await request.json();
+    const isVerified = verifiction.verifiction === true;
     await sql`
       UPDATE users 
-      SET verification = ${isMatch}
+      SET verifiction = ${isVerified}
       WHERE username = ${params.username}
     `;
 
-    return NextResponse.json({ message: 'Email verified successfully' });
+    return NextResponse.json({ message: 'Email verified successfully'});
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+

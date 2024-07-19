@@ -1,7 +1,7 @@
 import { hash } from "bcrypt";
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
-import createUsersTable from "@/app/api/create-table/route"
+//import createUsersTable from "@/app/api/create-table/route"
 // Otp
 import EmailTemplate from "@/app/api/resend/email-template";
 import { Resend } from "resend";
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
 
-    createUsersTable();
+   // createUsersTable();
     const verifiction = false;
     // Hash the password
     const hashedPassword = await hash(password, 10);

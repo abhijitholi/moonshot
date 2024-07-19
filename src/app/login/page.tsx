@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState('');
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +20,7 @@ export default function LoginPage() {
       [e.target.name]: e.target.value,
     });
   };
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -35,9 +37,25 @@ export default function LoginPage() {
       });
       if (response.status === 200) {
         setShowSuccess(true);
-        setTimeout(() => {
-          router.push(`/dashbord`);
-        }, 1000);
+
+        // async function handleUsername (){
+        //   try {
+        //     const response = await axios.get(`./api/auth/${form.email}`);  
+        //     if (response.status === 200) {
+        //       const data = response.data;
+        //       console.log(`  ${response.data}+ this is data`)
+        //       setUsername(data[0].username);
+        //       setTimeout(() => {
+        //         router.push(`login/${username}`);
+        //       }, 1000);
+        //     }
+        //   } catch (error) {
+        //      // Handle error
+        //      console.log('Api not colling:', error);
+        //   }
+        // }
+        // handleUsername();
+
       }
     } catch (error) {
       // Handle error
@@ -91,7 +109,7 @@ export default function LoginPage() {
         </form>
         <div className="mt-4 text-center">
           <p className="text-gray-600">
-            Don’t have an Account? <a href="/signup" className="text-blue-600 hover:underline">SIGN UP</a>
+            Don’t have an Account? <a href="/" className="text-blue-600 hover:underline">SIGN UP</a>
           </p>
         </div>
       </div>

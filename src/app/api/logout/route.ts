@@ -1,10 +1,9 @@
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
+    const { email } = await request.json();
 
     // Fetch the user by email
     const { rows } = await sql`
@@ -17,22 +16,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const user = rows[0];
-
-    // Check if the password is correct
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordCorrect) {
-      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-    }
+    // Update the login status to false after successful logout
     await sql`
       UPDATE users
-      SET login = ${true}
+      SET login = ${false}
       WHERE email = ${email}
     `;
 
-    // If password is correct and user is verified, return success response
-    return NextResponse.json({ message: "Login successful" });
+    // Return success response
+    return NextResponse.json({ message: "Logout successful" });
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });

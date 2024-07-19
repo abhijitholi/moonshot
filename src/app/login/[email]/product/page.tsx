@@ -1,7 +1,7 @@
 "use client";
 
 import { faker } from '@faker-js/faker';
-import { FC, useState } from 'react';
+import { FC, useState } from 'react'; 
 
 // Define a type for the product
 interface Product {

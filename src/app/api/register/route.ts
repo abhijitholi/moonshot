@@ -3,7 +3,7 @@ import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 import createUsersTable from "../create-table/create-table";
 createUsersTable();
-// Otp
+// Otp function
 import EmailTemplate from "@/app/api/resend/email-template";
 import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -30,13 +30,14 @@ export async function POST(request: NextRequest) {
 
   
     const verifiction = false;
+    const login = false;
     // Hash the password
     const hashedPassword = await hash(password, 10);
 
     // Insert user details and OTP into the database
     await sql`
-      INSERT INTO users (username, email, password, otp, verifiction)
-      VALUES (${username}, ${email}, ${hashedPassword}, ${OTP}, ${verifiction})
+      INSERT INTO users (username, email, password, otp, verifiction,login )
+      VALUES (${username}, ${email}, ${hashedPassword}, ${OTP}, ${verifiction}, ${login})
     `;
  
     // Send the OTP email

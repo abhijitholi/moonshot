@@ -1,7 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import logoutUser from '@/app/api/logout/logout';
 
 const Navbar: React.FC = () => {
+  
+  // Replace with actual user's email
+  const userEmail = "john.doe@example.com"; // Example email
+
   return (
     <nav className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -37,7 +42,9 @@ const Navbar: React.FC = () => {
             <Link href="/orders-returns" legacyBehavior>
               <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Orders & Returns</a>
             </Link>
-            <span className="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">Hi, John</span>
+            <span className="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">
+              <button>Hi, John logout</button>
+            </span>
             <button className="ml-4 p-2 rounded-full text-gray-800 hover:text-black">
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 6h13M8 12h13m-7 6h7M3 6h.01M3 12h.01M3 18h.01"></path>
@@ -52,7 +59,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="bg-gray-100 text-center py-2">
+      <div className="bg-orange-400 text-center py-2">
         <a href="#" className="text-gray-800 hover:text-black">Get 10% off on business sign up</a>
       </div>
     </nav>

@@ -33,7 +33,7 @@ const generateFakeProducts = (count: number): Product[] => {
 
 const Products: FC = () => {
   // Generate 100 fake products
-  const products = generateFakeProducts(300);
+  const products = generateFakeProducts(100);
   
   // State for the selected department filter
   const [selectedDepartment, setSelectedDepartment] = useState<string>('All');
@@ -53,7 +53,7 @@ const Products: FC = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Products</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Products</h1>
 
       <div className="mb-4">
         <label htmlFor="department-filter" className="mr-2">Filter by department:</label>

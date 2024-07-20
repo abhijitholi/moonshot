@@ -1,31 +1,11 @@
-"use client";
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import axios from 'axios';
 
-interface NavbarProps {
-  username: string;
-}
 
-const Navbar: React.FC<NavbarProps> = ({ username }) => {
-  useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const response = await axios.get(`/api/auth/username/${username}`);
-        if (response.status === 200) {
-          const data = response.data;
-          const loginValue = data[0]?.login;
-          console.log(loginValue);
-        }
-      } catch (error) {
-        console.log('API call failed:', error);
-      }
-    };
-
-    if (username) {
-      fetchUsername();
-    }
-  }, [username]);
+const Navbar: React.FC = () => {
+  
+  // Replace with actual user's email
+  const userEmail = "john.doe@example.com"; // Example email
 
   return (
     <nav className="bg-white shadow-sm">

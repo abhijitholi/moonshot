@@ -4,34 +4,29 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (e:any) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     setShowError(false);
+    setLoading(true);
     try {
       const response = await axios.post('/api/login', form, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
       if (response.status === 200) {
         setShowSuccess(true);
@@ -41,27 +36,41 @@ export default function LoginPage() {
             const response = await axios.get(`/api/auth/email/${form.email}`);  
             if (response.status === 200) {
               const data = response.data;
-              const login = data[0].login;
-              const username = data[0].username;
-               console.log(login)
-              if (!login) {
-                router.push(`/login`);
-              }
-              if(login){
-                setTimeout(() => {
+              const  login   = data[0].login;
+              const   username  = data[0].username;
+              const   verifiction   = data[0].verifiction;
+              // console.log(login);
+              // console.log(username);
+               console.log(verifiction); 
+              if (!verifiction) {
+                router.push(`/verify/${username}`);
+              } else if (verifiction) {
+                if (login) {
                   router.push(`/login/${username}`);
-                }, 1000);
+                } else  if (!login){
+                  router.push(`/login`);
+                }
               }
+              // if(login){
+              //   setTimeout(() => {
+              //     router.push(`/login/${username}`);
+              //   }, 1000);
+              // }
             }
           } catch (error) {
             console.log('API call failed:', error);
+            setErrorMessage('Failed to fetch user details');
+            setShowError(true);
           }
         };
         fetchUsername();
       }
     } catch (error) {
       console.log('Login failed:', error);
+      setErrorMessage('Invalid email or password');
       setShowError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -106,7 +115,9 @@ export default function LoginPage() {
               {showPassword ? 'Hide' : 'Show'}
             </button>
           </div>
-          <button type="submit" className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">Login</button>
+          <button type="submit" className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
         <div className="mt-4 text-center">
           <p className="text-gray-600">
@@ -121,7 +132,7 @@ export default function LoginPage() {
       )}
       {showError && (
         <div className="fixed top-4 right-4 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-          <span className="font-medium">Login failed. Please check your credentials</span>
+          <span className="font-medium">{errorMessage}</span>
         </div>
       )}
     </div>

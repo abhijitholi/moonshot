@@ -1,7 +1,7 @@
 import axios from 'axios';
 exports.logoutUser = async function logoutUser(email: string) {
     try {
-      const response = await axios.post('/api/logout', { rname });
+      const response = await axios.post('/api/logout', { name });
 
       if (response.status === 200) {
         console.log(response.data); // Logout successful

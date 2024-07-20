@@ -8,7 +8,6 @@ export async function GET(request: NextRequest, { params }: { params: { username
       SELECT * FROM users
       WHERE username = ${params.username}
     `;
-    
     return NextResponse.json(rows);
   } catch (error: any) {
     console.error(error);

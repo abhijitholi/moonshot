@@ -41,7 +41,7 @@ const VerifyEmail: React.FC<{ params: { username: string } }> = ({ params }) => 
       const response = await axios.post(`/api/verify/${params.username}`, { verifiction });
       if(verifiction){
         setTimeout(() => {
-            router.push(`/`);
+            router.push(`/login`);
           }, 1000);
       }
       setShowSuccess (verifiction);  

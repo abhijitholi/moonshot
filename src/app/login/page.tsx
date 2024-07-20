@@ -11,7 +11,6 @@ export default function LoginPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [username, setUsername] = useState('');
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +19,6 @@ export default function LoginPage() {
       [e.target.name]: e.target.value,
     });
   };
-
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -38,40 +36,43 @@ export default function LoginPage() {
       if (response.status === 200) {
         setShowSuccess(true);
 
-        // async function handleUsername (){
-        //   try {
-        //     const response = await axios.get(`./api/auth/${form.email}`);  
-        //     if (response.status === 200) {
-        //       const data = response.data;
-        //       console.log(`  ${response.data}+ this is data`)
-        //       setUsername(data[0].username);
-        //       setTimeout(() => {
-        //         router.push(`login/${username}`);
-        //       }, 1000);
-        //     }
-        //   } catch (error) {
-        //      // Handle error
-        //      console.log('Api not colling:', error);
-        //   }
-        // }
-        // handleUsername();
-
+        const fetchUsername = async () => {
+          try {
+            const response = await axios.get(`/api/auth/email/${form.email}`);  
+            if (response.status === 200) {
+              const data = response.data;
+              const login = data[0].login;
+              const username = data[0].username;
+               console.log(login)
+              if (!login) {
+                router.push(`/login`);
+              }
+              if(login){
+                setTimeout(() => {
+                  router.push(`/login/${username}`);
+                }, 1000);
+              }
+            }
+          } catch (error) {
+            console.log('API call failed:', error);
+          }
+        };
+        fetchUsername();
       }
     } catch (error) {
-      // Handle error
       console.log('Login failed:', error);
       setShowError(true);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-wihte">
+    <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <p className="text-center text-gray-600 mb-4">
           <span className="font-semibold">Welcome back to ECOMMERCE</span>
           <br />
-          The next gen business marketplace
+          The next-gen business marketplace
         </p>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -120,7 +121,7 @@ export default function LoginPage() {
       )}
       {showError && (
         <div className="fixed top-4 right-4 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-          <span className="font-medium">! Login failed. Please check your credentials</span>
+          <span className="font-medium">Login failed. Please check your credentials</span>
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@ import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, { params }: { params: { username: string } }) {
-  console.log(params.username)
+  //console.log(params.email)
   try {
     const { rows } = await sql`
       SELECT * FROM users

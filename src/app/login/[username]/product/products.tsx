@@ -36,6 +36,7 @@ const Products: FC = () => {
   const products = generateFakeProducts(100);
   
   // State for the selected department filter
+  //const [selectedDepartment, setSelectedDepartment] = useState<string>('All');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('All');
 
   // Get unique departments for the filter options

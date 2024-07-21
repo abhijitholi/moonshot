@@ -90,7 +90,7 @@ const Email: React.FC<EmailProps> = ({ params: { username } }) => {
       </button>
 
       {login && !interst && <Interstmaking params={{ username: username }} />}
-      {login && interst && <Products params={{ username: username }} />}
+      {login && interst && <Products />}
     </>
   );
 };

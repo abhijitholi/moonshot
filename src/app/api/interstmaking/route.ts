@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { NextRequest, NextResponse } from "next/server";
-
+import user_interests from "../create-table/user_interests";
+user_interests()
 interface UserInterests {
   username: string;
   computers: boolean;
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody: UserInterests = await request.json();
     const { username, computers, kids, toys, clothing, outdoors, shoes } = reqBody;
-
+    
     await sql`
       INSERT INTO user_interests (username, computers, kids, toys, clothing, outdoors, shoes)
       VALUES (${username}, ${computers}, ${kids}, ${toys}, ${clothing}, ${outdoors}, ${shoes})

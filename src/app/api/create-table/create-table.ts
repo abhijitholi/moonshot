@@ -4,8 +4,8 @@ import { sql } from '@vercel/postgres';
   try {
     await sql`
       CREATE TABLE IF NOT EXISTS users ( 
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(255) NOT NULL,
+        id SERIAL,
+        username VARCHAR(255) PRIMARY KEY,
         email VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
         otp VARCHAR(255) NOT NULL,

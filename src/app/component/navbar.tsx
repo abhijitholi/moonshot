@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
               <a className="text-gray-800 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Orders & Returns</a>
             </Link>
             <span className="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">
-              <button>Hi, John logout</button>
+              <button>Hi, John</button>
             </span>
             <button className="ml-4 p-2 rounded-full text-gray-800 hover:text-black">
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

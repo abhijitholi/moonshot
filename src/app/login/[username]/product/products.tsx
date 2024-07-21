@@ -42,8 +42,8 @@ const Products: FC = () => {
   const departments = Array.from(new Set(products.map(p => p.department)));
   
   // Handle department filter change
-  const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDepartment(e.target.value);
+  const handleDepartmentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDepartment(event.target.value);
   };
 
   // Filter products based on selected department
